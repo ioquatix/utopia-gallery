@@ -4,11 +4,20 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'utopia/tags/gallery/version'
 
 Gem::Specification.new do |spec|
-	spec.name          = "utopia-gallery"
+	spec.name          = "utopia-tags-gallery"
 	spec.version       = Utopia::Tags::Gallery::VERSION
 	spec.authors       = ["Samuel Williams"]
 	spec.email         = ["samuel.williams@oriontransfer.co.nz"]
-	spec.summary       = %q{A gallery tag for use with Utopia.}
+	spec.description   = <<-EOF
+		Utopia is a website generation framework which provides a robust set of tools
+		to build highly complex dynamic websites. It uses the filesystem heavily for
+		content and provides frameworks for interacting with files and directories as
+		structure representing the website.
+
+		This package includes a useful gallery component which can be used for
+		displaying thumbnails of images, documents and movies.
+	EOF
+	spec.summary       = %q{A gallery tag for use with Utopia web framework.}
 	spec.homepage      = ""
 	spec.license       = "MIT"
 
@@ -19,4 +28,7 @@ Gem::Specification.new do |spec|
 
 	spec.add_development_dependency "bundler", "~> 1.3"
 	spec.add_development_dependency "rake"
+	
+	spec.add_dependency "utopia", "~> 0.12.0"
+	spec.add_dependency "rmagick"
 end
