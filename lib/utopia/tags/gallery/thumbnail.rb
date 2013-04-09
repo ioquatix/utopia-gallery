@@ -61,6 +61,9 @@ module Utopia
 					def call(img)
 						img = super(img)
 
+						# The crop composite doesn't work correcty with unusual colourspaces:
+						img.colorspace = Magick::SRGBColorspace
+
 						circle = Magick::Image.new(*@size)
 						gc = Magick::Draw.new
 						gc.fill('black')
@@ -99,11 +102,12 @@ module Utopia
 				DEFAULT = {
 					:document => Processes::DocumentThumbnail.new([300, 300]),
 					:photo => Processes::PhotoThumbnail.new([300, 300]),
+
 					:square => Processes::CropThumbnail.new([300, 300]),
-					:circle => Processes::CircleThumbnail.new([300, 300])
-		
+					:circle => Processes::CircularCropThumbnail.new([300, 300]),
+
 					:large => Processes::Thumbnail.new([800, 800]),
-					:small => Processes::Thumbnail.new([300, 300])
+					:small => Processes::Thumbnail.new([300, 300]),
 				}
 			end
 		end

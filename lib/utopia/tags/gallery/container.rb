@@ -18,9 +18,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+require 'fileutils'
+
 module Utopia
 	module Tags
 		module Gallery
+			CACHE_DIR = "_cache"
+			
 			class Path
 				def initialize(original_path)
 					@original_path = original_path
@@ -71,9 +75,13 @@ module Utopia
 			end
 		
 			class Container
+				include Enumerable
+				
 				def initialize(node, path, processes = Processes::DEFAULT)
 					@node = node
 					@path = path
+					
+					@processes = processes
 				end
 	
 				def metadata
@@ -87,6 +95,8 @@ module Utopia
 				end
 	
 				def each(options = {})
+					return to_enum(:each, options) unless block_given?
+					
 					options[:filter] ||= /(jpg|png)$/i
 
 					paths = []
@@ -121,7 +131,7 @@ module Utopia
 					processes.each do |process_name, extension|
 						process_name = process_name.to_sym
 			
-						process = PROCESSES[process_name]
+						process = @processes[process_name]
 						extension ||= process.default_extension(image_path)
 			
 						image_path.extensions[process_name] = extension if extension
@@ -136,7 +146,7 @@ module Utopia
 							processed_image.write(local_processed_path)
 				
 							# Run GC to free up any memory.
-							processed_image = nil
+							image = processed_image = nil
 							GC.start if defined? GC
 						end
 					end

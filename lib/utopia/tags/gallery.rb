@@ -20,14 +20,12 @@
 
 require 'utopia/tags'
 
-require 'RMagick'
-require 'fileutils'
+require 'utopia/tags/gallery/thumbnail'
+require 'utopia/tags/gallery/container'
 
 module Utopia
 	module Tags
 		module Gallery
-			CACHE_DIR = "_cache"
-	
 			class Metadata
 				def initialize(metadata)
 					@metadata = metadata
