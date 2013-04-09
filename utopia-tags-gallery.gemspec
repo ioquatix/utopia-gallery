@@ -14,10 +14,10 @@ Gem::Specification.new do |spec|
 		content and provides frameworks for interacting with files and directories as
 		structure representing the website.
 
-		This package includes a useful gallery component which can be used for
-		displaying thumbnails of images, documents and movies.
+		This package includes a useful <gallery> tag which can be used for displaying
+		thumbnails of images, documents and movies.
 	EOF
-	spec.summary       = %q{A gallery tag for use with Utopia web framework.}
+	spec.summary       = %q{A gallery tag for use with the Utopia web framework.}
 	spec.homepage      = ""
 	spec.license       = "MIT"
 

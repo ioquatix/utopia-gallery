@@ -2,7 +2,7 @@
 
 [Utopia](http://www.codeotaku.com/projects/utopia) is a website generation framework which provides a robust set of tools to build highly complex dynamic websites. It uses the filesystem heavily for content and provides frameworks for interacting with files and directories as structure representing the website.
 
-This package includes a useful gallery component which can be used for displaying thumbnails of images, documents and movies.
+This package includes a useful `<gallery>` tag which can be used for displaying thumbnails of images, documents and movies.
 
 ## Installation
 
