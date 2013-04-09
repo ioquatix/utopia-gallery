@@ -18,6 +18,36 @@ And then execute:
 
     $ bundle
 
+## Usage
+
+Require the tag in your `config.ru`:
+
+	require 'utopia/tags/gallery'
+
+In your `xnode`:
+
+	<gallery path="#{relative_path_to_images}" tag="#{name_of_tag_per_item}" process="#{process_to_apply_per_item}" />
+
+For example, if you have `_circle.xnode`:
+
+	<div class="circle thumbnail">
+		<a class="thumbnail" href="#{attributes["src"].original}" title="#{attributes["alt"]}">
+			<img src="#{attributes["src"].circle}" alt="#{attributes["alt"]}" />
+		</a>
+		<div class="caption">#{attributes["alt"]}</div>
+	</div>
+
+Then you can create a gallery:
+
+	<page>	
+		<gallery path="_images" tag="circle" process="circle" />
+	</page>
+
+If you want to add captions, you can create `_images/gallery.yaml`:
+
+	bear.jpg:
+	    caption: "Brown bear is angry!"
+
 ## Contributing
 
 1. Fork it
