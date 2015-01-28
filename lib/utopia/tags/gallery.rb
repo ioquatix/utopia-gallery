@@ -18,10 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require 'utopia/tags'
-
-require 'utopia/tags/gallery/thumbnail'
-require 'utopia/tags/gallery/container'
+require_relative 'gallery/thumbnail'
+require_relative 'gallery/container'
 
 module Utopia
 	module Tags
@@ -81,5 +79,3 @@ module Utopia
 		end
 	end
 end
-
-Utopia::Tags.register("gallery", Utopia::Tags::Gallery)

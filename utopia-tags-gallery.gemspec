@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
 		structure representing the website.
 
 		This package includes a useful <gallery> tag which can be used for displaying
-		thumbnails of images, documents and movies.
+		thumbnails of images, documents and movies from a directory.
 	EOF
 	spec.summary       = %q{A gallery tag for use with the Utopia web framework.}
 	spec.homepage      = ""
@@ -29,6 +29,6 @@ Gem::Specification.new do |spec|
 	spec.add_development_dependency "bundler", "~> 1.3"
 	spec.add_development_dependency "rake"
 	
-	spec.add_dependency "utopia", "~> 0.12.0"
+	spec.add_dependency "utopia", "~> 1.0"
 	spec.add_dependency "rmagick"
 end
