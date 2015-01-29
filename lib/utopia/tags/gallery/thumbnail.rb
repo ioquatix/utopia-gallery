@@ -40,7 +40,7 @@ module Utopia
 		
 					def default_extension(path)
 						ext = path.original.extension
-			
+						
 						case ext
 						when /pdf/i
 							return "png"

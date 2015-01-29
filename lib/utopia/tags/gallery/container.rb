@@ -41,15 +41,17 @@ module Utopia
 				end
 
 				def self.append_suffix(name, suffix, extension = nil)
-					components = name.split(".")
-			
-					components.insert(-2, suffix)
-			
-					if (extension)
-						components[-1] = extension
+					offset = name.rindex('.')
+					
+					name = name.dup
+					
+					if extension
+						name[offset..-1] = '.' + suffix + '.' + extension
+					else
+						name.insert(offset, '.' + suffix)
 					end
-			
-					return components.join(".")
+					
+					return name
 				end
 
 				def processed(process = nil)
