@@ -54,7 +54,7 @@ module Utopia
 
 				def processed(process = nil)
 					if process
-						name = @original_path.basename
+						name = @original_path.last
 						return cache_root + Path.append_suffix(name, process.to_s, @extensions[process.to_sym])
 					else
 						return @original_path

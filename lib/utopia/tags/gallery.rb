@@ -63,7 +63,7 @@ module Utopia
 						if metadata[a.original.basename]["order"] and metadata[b.original.basename]["order"]
 							metadata[a.original.basename]["order"] <=> metadata[b.original.basename]["order"]
 						else
-							a.original.basename <=> b.original.basename
+							a.original.last <=> b.original.last
 						end
 					end
 
