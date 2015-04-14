@@ -60,17 +60,17 @@ module Utopia
 
 				transaction.tag("div", "class" => container_class) do |node|
 					items = container.each(options).sort do |a, b|
-						if metadata[a.original.basename]["order"] and metadata[b.original.basename]["order"]
-							metadata[a.original.basename]["order"] <=> metadata[b.original.basename]["order"]
+						if metadata[a.original.last]["order"] and metadata[b.original.last]["order"]
+							metadata[a.original.last]["order"] <=> metadata[b.original.last]["order"]
 						else
 							a.original.last <=> b.original.last
 						end
 					end
 
 					items.each do |path|
-						next if filter and !filter.match(path.original.basename)
+						next if filter and !filter.match(path.original.last)
 				
-						alt = Metadata.new(metadata[path.original.basename])
+						alt = Metadata.new(metadata[path.original.last])
 						
 						transaction.tag(tag_name, "src" => path, "alt" => alt)
 					end

@@ -85,10 +85,14 @@ module Utopia
 					
 					@processes = processes
 				end
-	
+				
+				def metadata_path
+					@node.local_path(@path + "gallery.yaml")
+				end
+				
 				def metadata
-					metadata_path = @node.local_path(@path + "gallery.yaml")
-		
+					metadata_path = self.metadata_path
+					
 					if File.exist? metadata_path
 						return YAML::load(File.read(metadata_path))
 					else
