@@ -45,20 +45,25 @@ module Utopia
 			end
 	
 			def self.call(transaction, state)
-				container = Container.new(transaction.end_tags[-2].node, Utopia::Path.create(state["path"] || "./"))
+				container = Container.new(transaction.end_tags[-2].node, Utopia::Path.create(state[:path] || "./"))
 				metadata = container.metadata
 				metadata.default = {}
 
-				tag_name = state["tag"] || "img"
-				container_class = state["class"] || "gallery"
+				tag_name = state[:tag] || "img"
+				container_class = state[:class] || "gallery"
 
 				options = {}
-				options[:process] = state["process"]
-				options[:filter] = Regexp.new("(#{state["filetypes"]})$", "i") if state["filetypes"]
-		
-				filter = Regexp.new(state["filter"], Regexp::IGNORECASE) if state["filter"]
+				options[:process] = state[:process]
+				
+				if filetypes = state[:filetypes]
+					options[:filter] = Regexp.new("(#{filetypes})$", "i")
+				end
+				
+				if filter = state[:filter]
+					filter = Regexp.new(filter, Regexp::IGNORECASE)
+				end
 
-				transaction.tag("div", "class" => container_class) do |node|
+				transaction.tag("div", class: container_class) do |node|
 					items = container.each(options).sort do |a, b|
 						if metadata[a.original.last]["order"] and metadata[b.original.last]["order"]
 							metadata[a.original.last]["order"] <=> metadata[b.original.last]["order"]
