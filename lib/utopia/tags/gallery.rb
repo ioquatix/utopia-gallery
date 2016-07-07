@@ -77,7 +77,7 @@ module Utopia
 				
 						alt = Metadata.new(metadata[path.original.last])
 						
-						transaction.tag(tag_name, "src" => path, "alt" => alt)
+						transaction.tag(tag_name, src: path, alt: alt)
 					end
 				end
 			end
