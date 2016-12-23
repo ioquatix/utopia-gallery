@@ -147,7 +147,9 @@ module Utopia
 						unless File.exists? local_processed_path
 							image = Magick::ImageList.new(local_original_path)
 							image.scene = 0
-				
+							
+							image.auto_orient!
+							
 							processed_image = process.call(image)
 							processed_image.write(local_processed_path)
 				
