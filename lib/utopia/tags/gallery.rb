@@ -44,8 +44,8 @@ module Utopia
 				end
 			end
 	
-			def self.call(transaction, state)
-				container = Container.new(transaction.end_tags[-2].node, Utopia::Path.create(state[:path] || "./"))
+			def self.call(document, state)
+				container = Container.new(document.end_tags[-2].node, Utopia::Path.create(state[:path] || "./"))
 				metadata = container.metadata
 				metadata.default = {}
 
