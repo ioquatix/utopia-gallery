@@ -8,11 +8,11 @@ This package includes a useful `<gallery>` tag which can be used for displaying 
 
 Add this line to your website's Gemfile:
 
-    gem 'utopia-tags-gallery'
+		gem 'utopia-tags-gallery'
 
 And then execute:
 
-    $ bundle
+		$ bundle
 
 ## Usage
 
@@ -22,6 +22,10 @@ Require the tag in your `config.ru`:
 
 In your `xnode`:
 
+```html
+<gallery:container path="_photos" />
+```	
+	
 	<gallery path="#{relative_path_to_images}" tag="#{name_of_tag_per_item}" process="#{process_to_apply_per_item}" />
 
 For example, if you have `_circle.xnode`:
@@ -42,7 +46,7 @@ Then you can create a gallery:
 If you want to add captions, you can create `_images/gallery.yaml`:
 
 	bear.jpg:
-	    caption: "Brown bear is angry!"
+			caption: "Brown bear is angry!"
 
 ## Contributing
 
