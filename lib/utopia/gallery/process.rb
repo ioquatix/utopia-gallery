@@ -1,4 +1,4 @@
-# Copyright, 2017, by Samuel G. D. Williams. <http://www.codeotaku.com>
+# Copyright, 2012, by Samuel G. D. Williams. <http://www.codeotaku.com>
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -18,38 +18,49 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+require 'vips/thumbnail'
+require 'fileutils'
+
 module Utopia
 	module Gallery
-		# Represents a single unit of media, e.g. a video or image.
-		class Media
-			# @param path [String] The full path to the media asset.
-			def initialize(path, metadata)
-				@path = path
-				@metadata = metadata
+		class Process
+			def initialize(name)
+				@name = name
 			end
 			
-			attr :path
-			attr :metadata
+			attr :name
 			
-			ORDER_KEY = 'order'
-			
-			def [] key
-				@metadata[key.to_s]
+			def relative_path(media)
+				source_path = media.path
+				
+				File.join(File.dirname(source_path), @name.to_s, File.basename(source_path))
+			end
+		end
+		
+		class ResizeImage < Process
+			def initialize(name, size = [800, 800], method = :resize_to_fit, **options)
+				@name = name
+				@size = size
+				@method = method
+				@options = options
 			end
 			
-			def caption
-				@metadata['caption']
-			end
-			
-			def to_s
-				caption || File.basename(@path, ".*")
-			end
-			
-			def <=> other
-				if a = self[ORDER_KEY] and b = other[ORDER_KEY]
-					a <=> b
+			def call(cache, locals)
+				output_path = cache.output_path_for(self)
+				
+				return if File.exist?(output_path)
+				
+				media = cache.media
+				media_path = File.join(cache.media_root, media.path)
+				
+				resizer = locals[:resizer] ||= Vips::Thumbnail::Resizer.new(media_path)
+				
+				FileUtils.mkdir_p(File.dirname(output_path))
+				
+				if output_image = resizer.send(@method, @size)
+					output_image.write_to_file output_path, **@options
 				else
-					self.path.last <=> other.path.last
+					FileUtils.ln(media_path, output_path)
 				end
 			end
 		end

@@ -21,7 +21,8 @@
 require 'utopia/content/namespace'
 
 require_relative 'container'
-require_relative 'processor'
+require_relative 'process'
+require_relative 'cache'
 
 module Utopia
 	module Gallery
@@ -56,8 +57,8 @@ module Utopia
 				
 				document.tag('div', class: 'gallery') do
 					container.each do |media|
-						Processor.new(@media_root, @cache_root, media, @processes).update
-						document.tag(media_tag_name, src: media.path, alt: media.caption)
+						cache = Cache.new(@media_root, @cache_root, media, @processes).update
+						document.tag(media_tag_name, src: cache, alt: media)
 					end
 				end
 			end

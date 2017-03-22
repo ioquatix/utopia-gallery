@@ -1,5 +1,5 @@
 
-RSpec.describe Utopia::Gallery::Processor do
+RSpec.describe Utopia::Gallery::Cache do
 	let(:pages_root) {File.join(__dir__, 'site/pages')}
 	let(:cache_root) {File.join(__dir__, 'site/public/_gallery')}
 	

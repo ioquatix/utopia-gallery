@@ -35,6 +35,6 @@ describe Utopia::Gallery do
 	it "should generate gallery of sample images" do
 		get "/index"
 		
-		expect(last_response.body).to be == '<div class="gallery"><img src="/sample_images/IMG_3340.jpg"/><img src="/sample_images/IMG_3341.jpg"/><img src="/sample_images/IMG_3344.jpg"/><img src="/sample_images/IMG_3351.jpg"/></div>'
+		expect(last_response.body).to be == '<div class="gallery"><img src="/sample_images/IMG_3340.jpg" alt="IMG_3340"/><img src="/sample_images/IMG_3341.jpg" alt="IMG_3341"/><img src="/sample_images/IMG_3344.jpg" alt="IMG_3344"/><img src="/sample_images/IMG_3351.jpg" alt="IMG_3351"/></div>'
 	end
 end

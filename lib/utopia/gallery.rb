@@ -19,5 +19,6 @@
 # THE SOFTWARE.
 
 require_relative 'gallery/container'
-require_relative 'gallery/processor'
+require_relative 'gallery/process'
+require_relative 'gallery/cache'
 require_relative 'gallery/tags'
