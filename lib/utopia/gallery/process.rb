@@ -25,7 +25,7 @@ module Utopia
 	module Gallery
 		class Process
 			def initialize(name)
-				@name = name
+				@name = name.to_sym
 			end
 			
 			attr :name
@@ -35,11 +35,16 @@ module Utopia
 				
 				File.join(File.dirname(source_path), @name.to_s, File.basename(source_path))
 			end
+			
+			def fresh?(input_path, output_path)
+				return File.exist?(output_path) && File.mtime(input_path) < File.mtime(output_path)
+			end
 		end
 		
 		class ResizeImage < Process
 			def initialize(name, size = [800, 800], method = :resize_to_fit, **options)
-				@name = name
+				super(name)
+				
 				@size = size
 				@method = method
 				@options = options
@@ -47,11 +52,10 @@ module Utopia
 			
 			def call(cache, locals)
 				output_path = cache.output_path_for(self)
-				
-				return if File.exist?(output_path)
-				
 				media = cache.media
 				media_path = File.join(cache.media_root, media.path)
+				
+				return if fresh?(media_path, output_path)
 				
 				resizer = locals[:resizer] ||= Vips::Thumbnail::Resizer.new(media_path)
 				

@@ -1,0 +1,6 @@
+<span class="photo">
+	<a rel="photos" class="thumbnail" href="#{attributes[:src].large}" title="#{attributes[:alt]}">
+		<img src="#{attributes[:src].small}" alt="#{attributes[:alt]}" />
+	</a>
+	<div class="caption">#{attributes[:alt]}</div>
+</span>

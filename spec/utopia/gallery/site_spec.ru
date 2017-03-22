@@ -1,13 +1,13 @@
 
 require 'utopia/content'
 
-PAGES_ROOT = File.expand_path('site/pages', __dir__)
-GALLERY_ROOT = File.expand_path('site/public/_gallery', __dir__)
+pages_root = File.expand_path('site/pages', __dir__)
+gallery_root = File.expand_path('site/public/_gallery', __dir__)
 
 use Utopia::Content,
-	root: PAGES_ROOT,
+	root: pages_root,
 	namespaces: {
-		'gallery' => Utopia::Gallery::Tags.new(media_root: PAGES_ROOT, cache_root: GALLERY_ROOT)
+		'gallery' => Utopia::Gallery::Tags.new(media_root: pages_root, cache_root: gallery_root, cache_path: '/_gallery')
 	}
 
 run lambda{|env| [200, {}, []]}

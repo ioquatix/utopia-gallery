@@ -22,11 +22,13 @@ module Utopia
 	module Gallery
 		class Cache
 			# @param root [String] The root path for media files.
-			def initialize(media_root, cache_root, media, processes)
+			def initialize(media_root, cache_root, cache_path, media, processes)
 				@media_root = media_root
 				@cache_root = cache_root
-				@processes = processes
+				@cache_path = cache_path
 				@media = media
+				
+				@processes = processes
 			end
 			
 			attr :media_root
@@ -42,14 +44,32 @@ module Utopia
 				File.join(@cache_root, process.relative_path(@media))
 			end
 			
+			def source_path_for(process)
+				File.join(@cache_path, process.relative_path(@media))
+			end
+			
+			# Process the media, update files in the cache.
 			def update
 				locals = {}
 				
-				@processes.each do |process|
+				@processes.values.each do |process|
 					process.call(self, locals)
 				end
 				
 				return self
+			end
+			
+			# This allows dynamic path lookup based on process name, e.g. `cache.small`.
+			def method_missing(name, *args)
+				if process = @processes[name]
+					return source_path_for(process)
+				else
+					super
+				end
+			end
+			
+			def respond_to?(name)
+				@processes.include?(name) || super
 			end
 		end
 	end

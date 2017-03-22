@@ -33,10 +33,19 @@ module Utopia
 				ResizeImage.new(:large, [1600, 1600], :resize_to_fit),
 			]
 			
-			def initialize(media_root: Utopia.default_root, cache_root: Utopia.default_root('public/_gallery'), processes: DEFAULT_PROCESSES)
+			def initialize(media_root: Utopia.default_root, cache_root: Utopia.default_root('public/_gallery'), cache_path: '_gallery', processes: DEFAULT_PROCESSES)
 				@media_root = media_root
 				@cache_root = cache_root
-				@processes = processes
+				@cache_path = cache_path
+				@processes = {}
+				
+				processes.each do |process|
+					name = process.name
+					
+					raise ArgumentError.new("Duplicate process #{name}") if @processes.include?(name)
+					
+					@processes[name] = process
+				end
 			end
 			
 			def container(document, state)
@@ -57,7 +66,7 @@ module Utopia
 				
 				document.tag('div', class: 'gallery') do
 					container.each do |media|
-						cache = Cache.new(@media_root, @cache_root, media, @processes).update
+						cache = Cache.new(@media_root, @cache_root, @cache_path, media, @processes).update
 						document.tag(media_tag_name, src: cache, alt: media)
 					end
 				end
