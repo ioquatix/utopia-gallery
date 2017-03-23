@@ -42,12 +42,12 @@ The best way to customize the output is to specify a tag to use:
 Add `_photo.xnode` such as:
 
 ```html
-<span class="photo_thumbnail">
-	<a rel="photos" class="thumbnail" href="#{attributes[:src].large}" title="#{attributes[:alt]}">
-		<img src="#{attributes[:src].photo}" alt="#{attributes[:alt]}" />
+<figure class="photo">
+	<a href="#{attributes[:src].large}" title="#{attributes[:alt]}">
+		<img src="#{attributes[:src].small}" alt="#{attributes[:alt]}"/>
 	</a>
-	<div class="caption">#{attributes[:alt]}</div>
-</span>
+	<figcaption>#{attributes[:alt]}</figcaption>
+</figure>
 ```
 
 ### Adding Captions
@@ -57,6 +57,7 @@ You can add captions and other metadata by adding a `gallery.yaml` file:
 ```yaml
 bear.jpg:
   caption: "Brown bear is angry!"
+  order: 1
 ```
 
 This file needs to be placed in the same directory as the images, and metadata can be accessed via the `alt` attribute, e.g. `attributes[:alt]['caption']`.
