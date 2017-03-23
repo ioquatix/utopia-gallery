@@ -31,8 +31,6 @@ module Utopia
 			attr :path
 			attr :metadata
 			
-			ORDER_KEY = 'order'
-			
 			def [] key
 				@metadata[key.to_s]
 			end
@@ -44,6 +42,8 @@ module Utopia
 			def to_s
 				caption || File.basename(@path, ".*")
 			end
+			
+			ORDER_KEY = 'order'.freeze
 			
 			def <=> other
 				if a = self[ORDER_KEY] and b = other[ORDER_KEY]
