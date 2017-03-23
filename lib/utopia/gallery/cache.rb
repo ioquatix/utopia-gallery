@@ -23,6 +23,7 @@ module Utopia
 		class Cache
 			# @param root [String] The root path for media files.
 			def initialize(media_root, cache_root, cache_path, media, processes)
+				# TODO: It's a lot of things to keep track of... perhaps a configuration class?
 				@media_root = media_root
 				@cache_root = cache_root
 				@cache_path = cache_path

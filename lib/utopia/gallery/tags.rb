@@ -33,7 +33,10 @@ module Utopia
 				ResizeImage.new(:large, [1600, 1600], :resize_to_fit),
 			]
 			
-			def initialize(media_root: Utopia.default_root, cache_root: Utopia.default_root('public/_gallery'), cache_path: '_gallery', processes: DEFAULT_PROCESSES)
+			# @param media_root [String] Directory where media is stored.
+			# @param cache_root [String] Directory where media is cached.
+			# @param cache_root [String] The prefix path for the cached assets, served as static content.
+			def initialize(media_root: Utopia.default_root, cache_root: Utopia.default_root('public/_gallery'), cache_path: '/_gallery', processes: DEFAULT_PROCESSES)
 				@media_root = media_root
 				@cache_root = cache_root
 				@cache_path = cache_path

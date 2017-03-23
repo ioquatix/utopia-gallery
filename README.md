@@ -1,52 +1,65 @@
-# Utopia::Tags::Gallery
+# Utopia::Gallery
 
-[Utopia](http://www.codeotaku.com/projects/utopia) is a website generation framework which provides a robust set of tools to build highly complex dynamic websites. It uses the filesystem heavily for content and provides frameworks for interacting with files and directories as structure representing the website.
-
-This package includes a useful `<gallery>` tag which can be used for displaying thumbnails of images, documents and movies.
+This extension for [Utopia](https://github.com/ioquatix/utopia) provides tags for generating photo galleries. Works well in conjunction with [jQuery.LiteBox](https://github.com/ioquatix/jquery-litebox).
 
 ## Installation
 
 Add this line to your website's Gemfile:
 
-		gem 'utopia-tags-gallery'
+	gem 'utopia-gallery'
 
 And then execute:
 
-		$ bundle
+	$ bundle
 
 ## Usage
 
-Require the tag in your `config.ru`:
+Require the tag in your `config/environment.rb`:
 
-	require 'utopia/tags/gallery'
+	require 'utopia/gallery'
+
+In your `config.ru` add the `gallery` namespace:
+
+use Utopia::Content,
+	namespaces: {
+		'gallery' => Utopia::Gallery::Tags.new
+	}
 
 In your `xnode`:
 
 ```html
-<gallery:container path="_photos" />
-```	
-	
-	<gallery path="#{relative_path_to_images}" tag="#{name_of_tag_per_item}" process="#{process_to_apply_per_item}" />
+<gallery:container path="_photos"/>
+```
 
-For example, if you have `_circle.xnode`:
+### Customizing Generated Markup
 
-	<div class="circle thumbnail">
-		<a class="thumbnail" href="#{attributes["src"].original}" title="#{attributes["alt"]}">
-			<img src="#{attributes["src"].circle}" alt="#{attributes["alt"]}" />
-		</a>
-		<div class="caption">#{attributes["alt"]}</div>
-	</div>
+The best way to customize the output is to specify a tag to use:
 
-Then you can create a gallery:
+```html
+<gallery:container path="_photos" tag="content:photo"/>
+```
 
-	<page>	
-		<gallery path="_images" tag="circle" process="circle" />
-	</page>
+Add `_photo.xnode` such as:
 
-If you want to add captions, you can create `_images/gallery.yaml`:
+```html
+<span class="photo_thumbnail">
+	<a rel="photos" class="thumbnail" href="#{attributes[:src].large}" title="#{attributes[:alt]}">
+		<img src="#{attributes[:src].photo}" alt="#{attributes[:alt]}" />
+	</a>
+	<div class="caption">#{attributes[:alt]}</div>
+</span>
+```
 
-	bear.jpg:
-			caption: "Brown bear is angry!"
+### Adding Captions
+
+You can add captions and other metadata by adding a `gallery.yaml` file:
+
+```yaml
+bear.jpg:
+  caption: "Brown bear is angry!"
+```
+
+This file needs to be placed in the same directory as the images, and metadata can be accessed via the `alt` attribute, e.g. `attributes[:alt]['caption']`.
 
 ## Contributing
 
