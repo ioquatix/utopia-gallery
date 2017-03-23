@@ -53,7 +53,7 @@ module Utopia
 			
 			def container(document, state)
 				node = document.parent.node
-				path = node.uri_path.dirname + state[:path]
+				path = node.uri_path.dirname + Utopia::Path[state[:path]]
 				
 				options = {}
 				if filetypes = state[:filetypes]
