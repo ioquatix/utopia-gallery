@@ -2,6 +2,11 @@
 
 This extension for [Utopia](https://github.com/ioquatix/utopia) provides tags for generating photo galleries. Works well in conjunction with [jQuery.LiteBox](https://github.com/ioquatix/jquery-litebox).
 
+[![Build Status](https://secure.travis-ci.org/ioquatix/utopia-gallery.svg)](http://travis-ci.org/ioquatix/utopia-gallery)
+[![Code Climate](https://codeclimate.com/github/ioquatix/utopia-gallery.svg)](https://codeclimate.com/github/ioquatix/utopia-gallery)
+[![Coverage Status](https://coveralls.io/repos/ioquatix/utopia-gallery/badge.svg)](https://coveralls.io/r/ioquatix/utopia-gallery)
+
+
 ## Installation
 
 Add this line to your website's Gemfile:
