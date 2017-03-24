@@ -37,7 +37,7 @@ module Utopia
 			end
 			
 			def fresh?(input_path, output_path)
-				return File.exist?(output_path) && File.mtime(input_path) < File.mtime(output_path)
+				return File.exist?(output_path) && File.mtime(input_path) <= File.mtime(output_path)
 			end
 		end
 		

@@ -22,4 +22,9 @@ RSpec.describe Utopia::Gallery::Cache do
 	it "should generate thumbnails" do
 		subject.each(&:update)
 	end
+	
+	it "it should be reentrant" do
+		subject.each(&:update)
+		subject.each(&:update)
+	end
 end
