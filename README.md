@@ -51,7 +51,9 @@ Add `_photo.xnode` such as:
 	<a href="#{attributes[:src].large}" title="#{attributes[:alt]}">
 		<img src="#{attributes[:src].small}" alt="#{attributes[:alt]}"/>
 	</a>
-	<figcaption>#{attributes[:alt]}</figcaption>
+	<?r if caption = attributes[:alt].caption ?>
+		<figcaption>#{caption}</figcaption>
+	<?r end ?>
 </figure>
 ```
 
