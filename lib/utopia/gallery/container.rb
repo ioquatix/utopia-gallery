@@ -31,6 +31,10 @@ module Utopia
 				@filter = filter
 			end
 			
+			attr :root
+			attr :path
+			attr :filter
+			
 			def each
 				return to_enum unless block_given?
 				

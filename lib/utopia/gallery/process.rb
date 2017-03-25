@@ -21,6 +21,8 @@
 require 'vips/thumbnail'
 require 'fileutils'
 
+require 'utopia/path'
+
 module Utopia
 	module Gallery
 		class Process
@@ -36,8 +38,25 @@ module Utopia
 				File.join(File.dirname(source_path), @name.to_s, File.basename(source_path))
 			end
 			
-			def fresh?(input_path, output_path)
-				return File.exist?(output_path) && File.mtime(input_path) <= File.mtime(output_path)
+			def self.mtime(path)
+				File.lstat(path).mtime
+			end
+			
+			def self.fresh?(input_path, output_path)
+				# We are not fresh if the output path doesn't exist:
+				return false unless File.exist?(output_path)
+				
+				# We are not fresh if the input is newere than the output:
+				return false if mtime(input_path) > mtime(output_path)
+				
+				# Otherwise, we are so fresh:
+				return true
+			end
+			
+			def self.link(input_path, output_path)
+				# Compute a path to input_path, relative to output_path
+				shortest_path = Utopia::Path.shortest_path(input_path, output_path)
+				FileUtils.ln_s(shortest_path, output_path, force: true)
 			end
 		end
 		
@@ -55,7 +74,7 @@ module Utopia
 				media = cache.media
 				media_path = File.join(cache.media_root, media.path)
 				
-				return if fresh?(media_path, output_path)
+				return if Process.fresh?(media_path, output_path)
 				
 				resizer = locals[:resizer] ||= Vips::Thumbnail::Resizer.new(media_path)
 				
@@ -64,7 +83,7 @@ module Utopia
 				if output_image = resizer.send(@method, @size)
 					output_image.write_to_file output_path, **@options
 				else
-					FileUtils.ln(media_path, output_path)
+					Process.link(media_path, output_path)
 				end
 			end
 		end

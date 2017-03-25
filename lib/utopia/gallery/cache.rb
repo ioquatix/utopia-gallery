@@ -41,6 +41,14 @@ module Utopia
 				@media.path
 			end
 			
+			def input_path
+				File.join(@media_root, @media.path)
+			end
+			
+			def output_paths
+				@processes.values.collect{|process| output_path_for(process)}
+			end
+			
 			def output_path_for(process)
 				File.join(@cache_root, process.relative_path(@media))
 			end
