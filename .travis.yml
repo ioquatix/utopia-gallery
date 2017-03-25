@@ -31,7 +31,10 @@ cache:
     - $HOME/vips
 
 before_install:
-- source install-vips.sh
+  - source install-vips.sh
+
+script:
+  - bundle exec rake
 
 rvm:
   - 2.2.4
