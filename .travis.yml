@@ -26,13 +26,13 @@ addons:
       - libglib2.0-dev
 
 cache:
+  bundler: true
   directories:
     - $HOME/vips
 
 before_install:
 - source install-vips.sh
 
-cache: bundler
 rvm:
   - 2.2.4
   - 2.3.2
