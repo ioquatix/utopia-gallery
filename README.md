@@ -57,6 +57,22 @@ Add `_photo.xnode` such as:
 </figure>
 ```
 
+Or, if you prefer the `<picture>` element:
+
+```html
+<figure class="photo">
+	<a href="#{attributes[:src].large}" title="#{attributes[:alt]}">
+		<picture>
+			<source srcset="#{attributes[:src].small}, #{attributes[:src].medium} 2x"/>
+			<img src="#{attributes[:src].small}" alt="#{attributes[:alt]}"/>
+		</picture>
+	</a>
+	<?r if caption = attributes[:alt].caption ?>
+		<figcaption>#{caption}</figcaption>
+	<?r end ?>
+</figure>
+```
+
 ### Adding Captions
 
 You can add captions and other metadata by adding a `gallery.yaml` file:
