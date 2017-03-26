@@ -3,7 +3,7 @@ RSpec.describe Utopia::Gallery::Cache do
 	let(:pages_root) {File.join(__dir__, 'site/pages')}
 	let(:cache_root) {File.join(__dir__, 'site/public/_gallery')}
 	
-	before(:each) do 
+	before(:each) do
 		FileUtils.rm_rf cache_root
 	end
 	
@@ -28,6 +28,25 @@ RSpec.describe Utopia::Gallery::Cache do
 		
 		output_paths.each do |output_path|
 			expect(File).to be_exist(output_path)
+		end
+	end
+	
+	it "should preserve aspect ratio" do
+		subject.each do |cache|
+			cache.update
+			
+			input_image = Vips::Image.new_from_file(cache.input_path)
+			input_image.autorot
+			input_aspect_ratio = Rational(input_image.width, input_image.height)
+			
+			cache.outputs do |process, output_path|
+				next unless process.method == :resize_to_fit
+				
+				output_image = Vips::Image.new_from_file(output_path)
+				output_aspect_ratio = Rational(output_image.width, output_image.height)
+				
+				expect(output_aspect_ratio).to be_within(0.01).of(input_aspect_ratio)
+			end
 		end
 	end
 	

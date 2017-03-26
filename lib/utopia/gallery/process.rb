@@ -69,6 +69,10 @@ module Utopia
 				@options = options
 			end
 			
+			attr :size
+			attr :method
+			attr :options
+			
 			def call(cache, locals)
 				output_path = cache.output_path_for(self)
 				media = cache.media

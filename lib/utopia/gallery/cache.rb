@@ -49,6 +49,14 @@ module Utopia
 				@processes.values.collect{|process| output_path_for(process)}
 			end
 			
+			def outputs
+				return to_enum(:outputs) unless block_given?
+				
+				@processes.values do |process|
+					yield process, output_path_for(process)
+				end
+			end
+			
 			def output_path_for(process)
 				File.join(@cache_root, process.relative_path(@media))
 			end
