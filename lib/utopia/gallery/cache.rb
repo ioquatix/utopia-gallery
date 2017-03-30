@@ -18,6 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+require 'trenni/uri'
+
 module Utopia
 	module Gallery
 		class Cache
@@ -36,10 +38,6 @@ module Utopia
 			attr :cache_root
 			attr :processes
 			attr :media
-			
-			def to_s
-				@media.path
-			end
 			
 			def input_path
 				File.join(@media_root, @media.path)
@@ -76,10 +74,19 @@ module Utopia
 				return self
 			end
 			
+			# Original path.
+			def to_s
+				original.to_s
+			end
+			
+			def original
+				Trenni::URI(@media.path)
+			end
+			
 			# This allows dynamic path lookup based on process name, e.g. `cache.small`.
 			def method_missing(name, *args)
 				if process = @processes[name]
-					return source_path_for(process)
+					return Trenni::URI(source_path_for(process))
 				else
 					super
 				end
