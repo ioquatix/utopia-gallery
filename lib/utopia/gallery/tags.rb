@@ -68,7 +68,7 @@ module Utopia
 				media_tag_name = state[:tag] || 'img'
 				
 				document.tag('div', class: 'gallery') do
-					container.each do |media|
+					container.sort.each do |media|
 						cache = Cache.new(@media_root, @cache_root, @cache_path, media, @processes).update
 						document.tag(media_tag_name, src: cache, alt: media)
 					end

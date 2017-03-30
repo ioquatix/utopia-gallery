@@ -35,7 +35,7 @@ describe Utopia::Gallery do
 	it "should generate gallery of sample images" do
 		get "/index"
 		
-		expect(last_response.body).to be == '<div class="gallery"><img src="/sample_images/IMG_3340.jpg" alt="IMG_3340"/><img src="/sample_images/IMG_3341.jpg" alt="IMG_3341"/><img src="/sample_images/IMG_3344.jpg" alt="IMG_3344"/><img src="/sample_images/IMG_3351.jpg" alt="IMG_3351"/></div>'
+		expect(last_response.body).to be == '<div class="gallery"><img src="/sample_images/IMG_3340.jpg" alt="IMG_3340"/><img src="/sample_images/IMG_3341.jpg" alt="IMG_3341"/><img src="/sample_images/IMG+3344.jpg" alt="IMG 3344"/><img src="/sample_images/IMG_3351.jpg" alt="IMG_3351"/></div>'
 	end
 	
 	it "should generate a gallery using the specified tag" do
@@ -54,10 +54,10 @@ describe Utopia::Gallery do
 	<div class="caption">IMG_3341</div>
 </span>
 <span class="photo">
-	<a rel="photos" class="thumbnail" href="/_gallery/sample_images/large/IMG_3344.jpg" title="IMG_3344">
-		<img src="/_gallery/sample_images/small/IMG_3344.jpg" alt="IMG_3344"/>
+	<a rel="photos" class="thumbnail" href="/_gallery/sample_images/large/IMG+3344.jpg" title="IMG 3344">
+		<img src="/_gallery/sample_images/small/IMG+3344.jpg" alt="IMG 3344"/>
 	</a>
-	<div class="caption">IMG_3344</div>
+	<div class="caption">IMG 3344</div>
 </span>
 <span class="photo">
 	<a rel="photos" class="thumbnail" href="/_gallery/sample_images/large/IMG_3351.jpg" title="IMG_3351">
