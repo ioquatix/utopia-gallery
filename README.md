@@ -6,7 +6,6 @@ This extension for [Utopia](https://github.com/ioquatix/utopia) provides tags fo
 [![Code Climate](https://codeclimate.com/github/ioquatix/utopia-gallery.svg)](https://codeclimate.com/github/ioquatix/utopia-gallery)
 [![Coverage Status](https://coveralls.io/repos/ioquatix/utopia-gallery/badge.svg)](https://coveralls.io/r/ioquatix/utopia-gallery)
 
-
 ## Installation
 
 Add this line to your website's Gemfile:
@@ -16,6 +15,17 @@ Add this line to your website's Gemfile:
 And then execute:
 
 	$ bundle
+
+### VIPS
+
+If you want to use `utopia-gallery` with PDFs or SVGs, you need to ensure you have VIPS compiled correctly.
+
+	$ vips pdfload
+	load PDF with libpoppler
+
+On Arch linux:
+
+	$ sudo pacman -S poppler-glib cairo librsvg
 
 ## Usage
 
