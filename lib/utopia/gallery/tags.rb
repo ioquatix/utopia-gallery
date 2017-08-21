@@ -36,11 +36,13 @@ module Utopia
 			# @param media_root [String] Directory where media is stored.
 			# @param cache_root [String] Directory where media is cached.
 			# @param cache_root [String] The prefix path for the cached assets, served as static content.
-			def initialize(media_root: Utopia.default_root, cache_root: Utopia.default_root('public/_gallery'), cache_path: '/_gallery', processes: DEFAULT_PROCESSES)
+			def initialize(media_root: Utopia.default_root, cache_root: Utopia.default_root('public/_gallery'), cache_path: '/_gallery', processes: DEFAULT_PROCESSES, container_class: 'gallery')
 				@media_root = media_root
 				@cache_root = cache_root
 				@cache_path = cache_path
 				@processes = {}
+				
+				@container_class = container_class
 				
 				processes.each do |process|
 					name = process.name
@@ -66,8 +68,9 @@ module Utopia
 				container = Container.new(@media_root, path, **options)
 				
 				media_tag_name = state[:tag] || 'img'
+				container_class = state[:class] || @container_class
 				
-				document.tag('div', class: 'gallery') do
+				document.tag('div', class: container_class) do
 					container.sort.each do |media|
 						cache = Cache.new(@media_root, @cache_root, @cache_path, media, @processes).update
 						document.tag(media_tag_name, src: cache, alt: media)
