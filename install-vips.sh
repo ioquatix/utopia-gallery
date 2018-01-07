@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 export NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-export VIPS_SITE=http://www.vips.ecs.soton.ac.uk/supported
+export VIPS_SITE=https://github.com/jcupitt/libvips/releases/download
 export VIPS_VERSION_MAJOR=8
-export VIPS_VERSION_MINOR=4
-export VIPS_VERSION_MICRO=5
+export VIPS_VERSION_MINOR=6
+export VIPS_VERSION_MICRO=1
 export VIPS_VERSION=$VIPS_VERSION_MAJOR.$VIPS_VERSION_MINOR
 export VIPS_VERSION_FULL=$VIPS_VERSION.$VIPS_VERSION_MICRO
 export PATH=$HOME/vips/bin:$PATH
@@ -29,7 +29,7 @@ if [ -d "$HOME/vips/bin" ]; then
 fi
 
 rm -rf $HOME/vips
-wget $VIPS_SITE/$VIPS_VERSION/vips-$VIPS_VERSION_FULL.tar.gz
+wget $VIPS_SITE/v$VIPS_VERSION_FULL/vips-$VIPS_VERSION_FULL.tar.gz
 tar xf vips-$VIPS_VERSION_FULL.tar.gz
 cd vips-$VIPS_VERSION_FULL
 CXXFLAGS=-D_GLIBCXX_USE_CXX11_ABI=0 ./configure --prefix=$HOME/vips $*
