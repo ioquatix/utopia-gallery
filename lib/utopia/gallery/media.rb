@@ -49,7 +49,7 @@ module Utopia
 				if a = self[ORDER_KEY] and b = other[ORDER_KEY]
 					a <=> b
 				else
-					self.path.last <=> other.path.last
+					self.path <=> other.path
 				end
 			end
 		end
