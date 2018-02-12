@@ -35,10 +35,11 @@ Require the tag in your `config/environment.rb`:
 
 In your `config.ru` add the `gallery` namespace:
 
-use Utopia::Content,
-	namespaces: {
-		'gallery' => Utopia::Gallery::Tags.new
-	}
+```ruby
+use Utopia::Content, namespaces: {
+	'gallery' => Utopia::Gallery::Tags.new
+}
+```
 
 In your `xnode`:
 
