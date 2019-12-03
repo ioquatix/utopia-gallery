@@ -77,7 +77,7 @@ module Utopia
 			def relative_path(media)
 				path = super
 				
-				if path.end_with?(".pdf")
+				if path.match?(/\.(pdf|svg)$/)
 					path += ".png"
 				end
 				
