@@ -1,5 +1,6 @@
 
 require 'utopia/content'
+require 'utopia/gallery/tags'
 
 pages_root = File.expand_path('site/pages', __dir__)
 gallery_root = File.expand_path('site/public/_gallery', __dir__)

@@ -20,6 +20,8 @@
 
 require_relative 'media'
 
+require 'yaml'
+
 module Utopia
 	module Gallery
 		class Container

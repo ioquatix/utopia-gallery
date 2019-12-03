@@ -1,50 +1,23 @@
 language: ruby
-sudo: false
-dist: trusty
+dist: xenial
+cache: bundler
 
 addons:
   apt:
     packages:
-      - libxml2-dev
-      - gettext
-      - python-dev
-      - liblcms1-dev
-      - libmagickwand-dev
-      - libopenexr-dev
-      - libcfitsio3-dev
-      - gobject-introspection
-      - libgirepository1.0-dev
-      - libgif-dev
-      - libgs-dev
-      - libgsf-1-dev
-      - libmatio-dev
-      - libopenslide-dev
-      - liborc-0.4-dev
-      - libpango1.0-dev
-      - libpoppler-glib-dev
-      - libwebp-dev
-      - libglib2.0-dev
+      - libvips
 
-cache:
-  bundler: true
-  directories:
-    - $HOME/vips
-
-before_install:
-  - source install-vips.sh
-
-script:
-  - bundle exec rake
-
-rvm:
-  - 2.2.4
-  - 2.3.2
-  - 2.4.0
-  - jruby-head
-  - ruby-head
-  - rbx-3.65
 matrix:
-  allow_failures:
-    - rvm: rbx-3.65
-    - rvm: ruby-head
+  include:
+    - rvm: 2.4
+    - rvm: 2.5
+    - rvm: 2.6
+    - rvm: 2.6
+      env: COVERAGE=BriefSummary,Coveralls
     - rvm: jruby-head
+    - rvm: truffleruby
+    - rvm: ruby-head
+  allow_failures:
+    - rvm: jruby-head
+    - rvm: truffleruby
+    - rvm: ruby-head
