@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require 'trenni/uri'
+require 'trenni/reference'
 
 module Utopia
 	module Gallery
@@ -80,13 +80,13 @@ module Utopia
 			end
 			
 			def original
-				Trenni::URI(@media.path)
+				Trenni::Reference.new(@media.path)
 			end
 			
 			# This allows dynamic path lookup based on process name, e.g. `cache.small`.
 			def method_missing(name, *args)
 				if process = @processes[name]
-					return Trenni::URI(source_path_for(process))
+					return Trenni::Reference.new(source_path_for(process))
 				else
 					super
 				end
