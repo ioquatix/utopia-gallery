@@ -65,10 +65,8 @@ module Utopia
 			
 			# Process the media, update files in the cache.
 			def update
-				locals = {}
-				
 				@processes.values.each do |process|
-					process.call(self, locals)
+					process.call(self)
 				end
 				
 				return self

@@ -92,22 +92,23 @@ module Utopia
 				end
 			end
 			
-			def resizer_for(media_path)
-				Vips::Thumbnail::Resizer.new(media_path)
+			def resizer_for(input_path)
+				Vips::Thumbnail::Resizer.new(input_path)
 			end
 			
-			def call(cache, locals)
+			def call(cache)
+				input_path = cache.input_path
 				output_path = cache.output_path_for(self)
-				media = cache.media
-				media_path = File.join(cache.media_root, media.path)
 				
-				return if Process.fresh?(media_path, output_path)
+				return if Process.fresh?(input_path, output_path)
 				
-				resizer = locals[:resizer] ||= resizer_for(media_path)
+				resizer = resizer_for(cache.input_path)
 				
 				FileUtils.mkdir_p(File.dirname(output_path))
 				
 				generate_output(resizer, output_path)
+			ensure
+				resizer&.close
 			end
 		end
 		
@@ -130,8 +131,8 @@ module Utopia
 				end
 			end
 			
-			def resizer_for(media_path)
-				Vips::Thumbnail::Resizer.new(media_path, scale: @scale)
+			def resizer_for(input_path)
+				Vips::Thumbnail::Resizer.new(input_path, scale: @scale)
 			end
 		end
 	end
